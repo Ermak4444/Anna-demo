@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Анна Анатольевна — репетитор по русскому языку и литературе</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=PT+Serif:ital,wght@0,400;0,700;1,400&family=Yeseva+One&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#f3ead5;
+    --paper-deep:#ebdfc3;
+    --line:#d3c199;
+    --ink:#2a241c;
+    --ink-soft:#5c4a34;
+    --red:#a92a1f;
+    --red-soft:#c34638;
+    --gold:#9c7a3c;
+    --card-shadow: 0 18px 40px -20px rgba(42,36,28,.35);
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+
+  body{
+    margin:0;
+    background:
+      repeating-linear-gradient(
+        to bottom,
+        transparent 0px,
+        transparent 37px,
+        var(--line) 38px
+      ),
+      var(--paper);
+    background-attachment:local, fixed;
+    color:var(--ink);
+    font-family:'PT Serif', serif;
+    font-size:18px;
+    line-height:1.6;
+    position:relative;
+  }
+
+  body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    background-image:
+      radial-gradient(rgba(42,36,28,.05) 1px, transparent 1px);
+    background-size:3px 3px;
+    opacity:.5;
+    mix-blend-mode:multiply;
+    z-index:1;
+  }
+
+  .margin-rule{
+    position:fixed;
+    top:0; bottom:0;
+    left:64px;
+    width:2px;
+    background:rgba(169,42,31,.28);
+    z-index:1;
+  }
+  @media (max-width:760px){ .margin-rule{ left:26px; } }
+
+  h1,h2,h3{
+    font-family:'Yeseva One', serif;
+    font-weight:400;
+    color:var(--ink);
+    margin:0 0 .3em;
+  }
+
+  .wrap{
+    max-width:920px;
+    margin:0 auto;
+    padding:0 32px 0 96px;
+    position:relative;
+    z-index:2;
+  }
+  @media (max-width:760px){ .wrap{ padding:0 22px 0 52px; } }
+
+  section{ padding:96px 0; }
+  @media (max-width:760px){ section{ padding:64px 0; } }
+
+  /* ---------- red-pen accents ---------- */
+  .redink{ color:var(--red); }
+  .squiggle{
+    text-decoration: underline wavy var(--red-soft);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 5px;
+  }
+  .note{
+    font-family:'Caveat', cursive;
+    color:var(--red);
+    font-size:1.5em;
+    line-height:1.1;
+    display:inline-block;
+    transform:rotate(-3deg);
+  }
+
+  /* ---------- reveal on scroll ---------- */
+  .reveal{
+    opacity:0;
+    transform:translateY(22px);
+    transition:opacity .7s ease, transform .7s ease;
+  }
+  .reveal.in{ opacity:1; transform:translateY(0); }
+
+  /* ================= HERO ================= */
+  header.hero{
+    padding:80px 0 60px;
+    position:relative;
+  }
+  .draft-tag{
+    position:absolute;
+    top:22px;
+    right:24px;
+    background:#fff8e6;
+    border:1px solid rgba(42,36,28,.18);
+    box-shadow: var(--card-shadow);
+    padding:10px 16px 12px;
+    font-family:'Caveat', cursive;
+    font-size:1.15rem;
+    color:var(--ink-soft);
+    transform:rotate(4deg);
+    z-index:5;
+  }
+  .draft-tag b{ color:var(--red); }
+  @media (max-width:600px){
+    .draft-tag{ position:static; display:inline-block; margin-bottom:24px; transform:rotate(-2deg);}
+  }
+
+  .eyebrow{
+    font-family:'Caveat', cursive;
+    font-size:1.4rem;
+    color:var(--gold);
+    letter-spacing:.03em;
+  }
+
+  h1.name{
+    font-size:clamp(2.6rem, 6vw, 4.6rem);
+    line-height:1.02;
+    margin-top:.15em;
+  }
+  h1.name .amp{ color:var(--red); }
+
+  .subtitle{
+    font-size:1.4rem;
+    color:var(--ink-soft);
+    max-width:36em;
+    margin-top:.2em;
+  }
+
+  .lead{
+    margin-top:28px;
+    font-size:1.2rem;
+    max-width:38em;
+    position:relative;
+    padding-left:22px;
+    border-left:3px solid var(--red-soft);
+  }
+
+  .cta-row{
+    margin-top:44px;
+    display:flex;
+    align-items:center;
+    gap:28px;
+    flex-wrap:wrap;
+  }
+
+  .stamp-btn{
+    font-family:'Yeseva One', serif;
+    font-size:1.05rem;
+    color:var(--red);
+    background:transparent;
+    border:2.5px solid var(--red);
+    border-radius:50%;
+    width:158px;
+    height:158px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    line-height:1.25;
+    cursor:pointer;
+    transform:rotate(-8deg);
+    transition:transform .35s ease, background .35s ease, color .35s ease;
+    position:relative;
+    letter-spacing:.02em;
+  }
+  .stamp-btn::before{
+    content:"";
+    position:absolute;
+    inset:8px;
+    border:1px dashed var(--red);
+    border-radius:50%;
+    opacity:.6;
+  }
+  .stamp-btn:hover{
+    transform:rotate(-2deg) scale(1.04);
+    background:var(--red);
+    color:var(--paper);
+  }
+
+  .ghost-link{
+    font-family:'Caveat', cursive;
+    font-size:1.5rem;
+    color:var(--ink-soft);
+    text-decoration:none;
+    border-bottom:2px dotted var(--ink-soft);
+  }
+  .ghost-link:hover{ color:var(--red); border-color:var(--red);}
+
+  /* ================= ABOUT ================= */
+  .about-grid{
+    display:grid;
+    grid-template-columns:auto 1fr;
+    gap:36px;
+    align-items:start;
+  }
+  @media (max-width:640px){ .about-grid{ grid-template-columns:1fr; } }
+
+  .avatar{
+    width:118px;
+    height:118px;
+    border-radius:50%;
+    background:radial-gradient(circle at 30% 25%, #fff3d6, var(--gold) 70%);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-family:'Yeseva One', serif;
+    font-size:2.4rem;
+    color:var(--paper);
+    box-shadow:var(--card-shadow);
+    flex-shrink:0;
+  }
+
+  .quote-block{
+    margin:26px 0 0;
+    font-size:1.15rem;
+  }
+  .quote-block .note{ display:block; margin-top:10px; }
+
+  /* ================= STATS ================= */
+  .stats-grid{
+    display:grid;
+    grid-template-columns:repeat(4, 1fr);
+    gap:22px;
+    margin-top:20px;
+  }
+  @media (max-width:760px){ .stats-grid{ grid-template-columns:repeat(2,1fr); } }
+
+  .stat-card{
+    text-align:center;
+    padding:26px 12px 20px;
+    position:relative;
+  }
+  .stat-circle{
+    width:104px; height:104px;
+    margin:0 auto 12px;
+    border:3px solid var(--red);
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-family:'Yeseva One', serif;
+    font-size:1.5rem;
+    color:var(--red);
+    transform:rotate(-4deg);
+    position:relative;
+  }
+  .stat-card:nth-child(even) .stat-circle{ transform:rotate(5deg); }
+  .stat-label{
+    font-size:.98rem;
+    color:var(--ink-soft);
+    max-width:14em;
+    margin:0 auto;
+  }
+
+  /* ================= FORMAT ================= */
+  .format-list{
+    list-style:none;
+    padding:0;
+    margin:28px 0 0;
+    display:grid;
+    gap:18px;
+  }
+  .format-list li{
+    display:flex;
+    gap:16px;
+    align-items:flex-start;
+    font-size:1.1rem;
+  }
+  .check{
+    flex-shrink:0;
+    width:30px; height:30px;
+    color:var(--red);
+    font-family:'Caveat', cursive;
+    font-size:2rem;
+    line-height:1;
+    transform:rotate(-6deg);
+  }
+
+  /* ================= TESTIMONIALS ================= */
+  .notes-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:26px;
+    margin-top:30px;
+  }
+  @media (max-width:760px){ .notes-grid{ grid-template-columns:1fr; } }
+
+  .sticky{
+    background:#fff8dc;
+    padding:26px 22px 22px;
+    box-shadow:var(--card-shadow);
+    position:relative;
+    font-size:1.02rem;
+  }
+  .sticky:nth-child(1){ transform:rotate(-2.5deg); }
+  .sticky:nth-child(2){ transform:rotate(1.8deg); }
+  .sticky:nth-child(3){ transform:rotate(-1deg); }
+  .sticky::before{
+    content:"";
+    position:absolute;
+    top:-10px; left:50%;
+    width:34px; height:18px;
+    background:rgba(169,42,31,.55);
+    transform:translateX(-50%) rotate(-3deg);
+    border-radius:2px;
+  }
+  .sticky p{ margin:0 0 14px; }
+  .sticky .who{
+    font-family:'Caveat', cursive;
+    font-size:1.3rem;
+    color:var(--red);
+    text-align:right;
+  }
+
+  /* ================= PROGRAM ================= */
+  .syllabus{
+    counter-reset:step;
+    margin-top:28px;
+    display:grid;
+    gap:0;
+  }
+  .syllabus li{
+    list-style:none;
+    counter-increment:step;
+    display:grid;
+    grid-template-columns:56px 1fr;
+    gap:18px;
+    padding:20px 0;
+    border-bottom:1px dashed var(--line);
+  }
+  .syllabus li:last-child{ border-bottom:none; }
+  .syllabus li::before{
+    content:counter(step,decimal-leading-zero);
+    font-family:'Yeseva One', serif;
+    color:var(--red);
+    font-size:1.6rem;
+  }
+  .syllabus h4{
+    margin:0 0 6px;
+    font-family:'PT Serif', serif;
+    font-weight:700;
+    font-size:1.12rem;
+  }
+  .syllabus p{ margin:0; color:var(--ink-soft); }
+
+  /* ================= FAQ ================= */
+  .faq-item{
+    border-bottom:1px solid var(--line);
+  }
+  .faq-q{
+    width:100%;
+    text-align:left;
+    background:none;
+    border:none;
+    font-family:'PT Serif', serif;
+    font-weight:700;
+    font-size:1.12rem;
+    color:var(--ink);
+    padding:20px 0;
+    cursor:pointer;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:16px;
+  }
+  .faq-q .plus{
+    font-family:'Yeseva One', serif;
+    color:var(--red);
+    font-size:1.4rem;
+    transition:transform .3s ease;
+    flex-shrink:0;
+  }
+  .faq-item.open .faq-q .plus{ transform:rotate(135deg); }
+  .faq-a{
+    max-height:0;
+    overflow:hidden;
+    transition:max-height .4s ease;
+    color:var(--ink-soft);
+  }
+  .faq-a-inner{ padding:0 0 22px; max-width:42em; }
+
+  /* ================= FINAL CTA ================= */
+  .final{
+    text-align:center;
+    padding:100px 0 120px;
+  }
+  .final h2{ font-size:clamp(2rem,4.5vw,2.8rem); }
+  .final .subtitle{ margin:0 auto 40px; }
+  .contact-row{
+    margin-top:36px;
+    display:flex;
+    gap:22px;
+    justify-content:center;
+    flex-wrap:wrap;
+    font-family:'Caveat', cursive;
+    font-size:1.35rem;
+    color:var(--ink-soft);
+  }
+  .contact-row span.pending{
+    color:var(--gold);
+    border-bottom:2px dotted var(--gold);
+  }
+
+  footer{
+    text-align:center;
+    padding:34px 0 60px;
+    font-size:.9rem;
+    color:var(--ink-soft);
+    font-family:'PT Serif', serif;
+  }
+
+  ::selection{ background:var(--red); color:var(--paper); }
+</style>
+</head>
+<body>
+
+<div class="margin-rule"></div>
+
+<div class="wrap">
+
+  <header class="hero">
+    <div class="draft-tag">черновик —<br><b>данные уточняются</b></div>
+
+    <div class="eyebrow reveal">Репетиторский центр · Челябинск</div>
+    <h1 class="name reveal">Анна Анатольевна<span class="amp">.</span></h1>
+    <p class="subtitle reveal">Русский язык и литература — подготовка к ОГЭ и ЕГЭ, без зубрёжки и паники перед экзаменом.</p>
+
+    <p class="lead reveal">Больше 20&nbsp;лет учу видеть в правилах систему, а не набор исключений. <span class="squiggle">Ещё ни один ученик не ушёл с занятия с недоученным правилом.</span></p>
+
+    <div class="cta-row reveal">
+      <button class="stamp-btn">Записаться<br>на пробный<br>урок</button>
+      <a class="ghost-link" href="#results">Посмотреть результаты ↓</a>
+    </div>
+  </header>
+
+  <section id="about">
+    <div class="about-grid reveal">
+      <div class="avatar">А.А.</div>
+      <div>
+        <h2>Кто ведёт занятия</h2>
+        <p>Больше 20&nbsp;лет готовлю школьников к экзаменам по русскому языку и литературе — от разбора первого правила до последнего пробника перед настоящим ЕГЭ. Беру не количеством учеников, а тем, чтобы каждый разобрался, а не выучил тему на один вечер.</p>
+        <div class="quote-block">
+          «Мы занимаемся группой — русский и математика. Конечно, оценка выше, знаний больше… это стало для них хобби, с которым расставаться они не хотят»
+          <span class="note">— из отзыва мамы ученицы</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="results">
+    <h2 class="reveal">Результаты, а не обещания</h2>
+    <div class="stats-grid reveal">
+      <div class="stat-card">
+        <div class="stat-circle">98/100</div>
+        <div class="stat-label">баллов ЕГЭ по русскому языку у одной из учениц</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-circle">20+</div>
+        <div class="stat-label">лет преподавательского опыта</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-circle">сотни</div>
+        <div class="stat-label">учеников, подготовленных к ОГЭ и ЕГЭ</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-circle">бюджет</div>
+        <div class="stat-label">поступление на бюджетное место в вуз — реальный кейс ученицы</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="format">
+    <h2 class="reveal">Как проходят занятия</h2>
+    <ul class="format-list reveal">
+      <li><span class="check">✓</span> Лично и в небольших группах — до 10&nbsp;человек, чтобы у каждого было время на разбор</li>
+      <li><span class="check">✓</span> Очно и на связи — теория в понятных шпаргалках, практика на реальных вариантах ЕГЭ/ОГЭ</li>
+      <li><span class="check">✓</span> Обратная связь по каждой работе, а не просто общий балл в конце</li>
+      <li><span class="check">✓</span> Бесплатное вводное занятие — чтобы понять, подходит ли формат именно вашему ребёнку</li>
+    </ul>
+  </section>
+
+  <section id="reviews">
+    <h2 class="reveal">Что говорят родители</h2>
+    <div class="notes-grid reveal">
+      <div class="sticky">
+        <p>«Большое спасибо Анне Анатольевне за идеально выполненную работу с моей старшей дочерью. Ребёнок был готов к ЕГЭ по русскому языку на 100&nbsp;процентов»</p>
+        <div class="who">— Юлия</div>
+      </div>
+      <div class="sticky">
+        <p>«Учусь здесь уже третий год, до этого сестра тут училась — нареканий нет»</p>
+        <div class="who">— Василий</div>
+      </div>
+      <div class="sticky">
+        <p>«Спасибо за хорошую подготовку к ЕГЭ! Не знаю, что бы я без вас делал»</p>
+        <div class="who">— Александр</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="program">
+    <h2 class="reveal">Программа подготовки</h2>
+    <ul class="syllabus reveal">
+      <li>
+        <div>
+          <h4>Диагностика</h4>
+          <p>Смотрим, с чего начинаем — какие темы уже держатся, а где пробелы.</p>
+        </div>
+      </li>
+      <li>
+        <div>
+          <h4>Теория без воды</h4>
+          <p>Правила — в понятных схемах и шпаргалках, а не в сплошном тексте параграфа.</p>
+        </div>
+      </li>
+      <li>
+        <div>
+          <h4>Практика на реальных вариантах</h4>
+          <p>Разбираем задания из настоящих КИМов ЕГЭ и ОГЭ, а не абстрактные примеры.</p>
+        </div>
+      </li>
+      <li>
+        <div>
+          <h4>Сочинение</h4>
+          <p>Отдельно разбираем, как не терять баллы на самом сложном задании экзамена.</p>
+        </div>
+      </li>
+      <li>
+        <div>
+          <h4>Финальные прогоны</h4>
+          <p>Пробные экзамены в условиях, близких к настоящим, перед самим ЕГЭ/ОГЭ.</p>
+        </div>
+      </li>
+    </ul>
+  </section>
+
+  <section id="faq">
+    <h2 class="reveal">Частые вопросы</h2>
+    <div class="reveal">
+      <div class="faq-item">
+        <button class="faq-q"><span>Сколько человек в группе?</span><span class="plus">+</span></button>
+        <div class="faq-a"><div class="faq-a-inner">До 10&nbsp;человек — так у каждого остаётся время на разбор своих ошибок, а не только общий темп группы.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q"><span>С какого класса можно начинать?</span><span class="plus">+</span></button>
+        <div class="faq-a"><div class="faq-a-inner">Чем раньше, тем спокойнее идёт подготовка — но беру и тех, кто спохватился в выпускном классе.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q"><span>Что если ребёнок совсем не любит русский язык?</span><span class="plus">+</span></button>
+        <div class="faq-a"><div class="faq-a-inner">Обычно нелюбовь — это следствие непонятных правил и скучной подачи. Разбираем по-другому — и это меняется.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q"><span>Есть пробное занятие?</span><span class="plus">+</span></button>
+        <div class="faq-a"><div class="faq-a-inner">Да, бесплатно — чтобы вы оба поняли, подходит ли формат, прежде чем платить за курс.</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="final">
+    <h2 class="reveal">Готовы начать?</h2>
+    <p class="subtitle reveal">Запишитесь на бесплатное вводное занятие — обсудим уровень и цели, без обязательств.</p>
+    <div class="reveal">
+      <button class="stamp-btn">Записаться<br>на пробный<br>урок</button>
+    </div>
+    <div class="contact-row reveal">
+      <span class="pending">телефон уточняется</span>
+      <span class="pending">Telegram уточняется</span>
+      <span class="pending">WhatsApp уточняется</span>
+    </div>
+  </section>
+
+</div>
+
+<footer>Демо-макет для обсуждения · содержимое и данные требуют подтверждения перед публикацией</footer>
+
+<script>
+  // scroll reveal
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold:.15 });
+  revealEls.forEach(el=>io.observe(el));
+
+  // hero always visible immediately
+  document.querySelectorAll('header.hero .reveal').forEach(el=>el.classList.add('in'));
+
+  // FAQ accordion
+  document.querySelectorAll('.faq-item').forEach(item=>{
+    const q = item.querySelector('.faq-q');
+    const a = item.querySelector('.faq-a');
+    q.addEventListener('click', ()=>{
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item.open').forEach(other=>{
+        if(other!==item){
+          other.classList.remove('open');
+          other.querySelector('.faq-a').style.maxHeight = null;
+        }
+      });
+      if(isOpen){
+        item.classList.remove('open');
+        a.style.maxHeight = null;
+      } else {
+        item.classList.add('open');
+        a.style.maxHeight = a.scrollHeight + 'px';
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
